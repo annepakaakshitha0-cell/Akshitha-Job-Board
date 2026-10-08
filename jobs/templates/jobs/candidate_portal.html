@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Candidate Application Portal | TalentSphere{% endblock %}
+{% block meta_description %}Check your application status and track your progress in real-time.{% endblock %}
+
+{% block content %}
+<div class="bg-navy text-white py-4 border-bottom">
+    <div class="container">
+        <h1 class="h3 fw-bold mb-1">Track Your Job Applications</h1>
+        <p class="text-light opacity-75 small mb-0">Enter your registered email address to see your profile and application statuses.</p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <!-- Email Lookup Card -->
+        <div class="col-lg-8 mb-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                <form method="get" class="row g-2 align-items-center">
+                    <div class="col-md-9">
+                        <label for="candidate-email-input" class="form-label small fw-semibold text-muted">Registered Email Address:</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+                            <input type="email" name="email" id="candidate-email-input" class="form-control border-start-0" placeholder="e.g. alex.morgan@example.com" value="{{ searched_email }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-indigo w-100 rounded-3 py-2 fw-semibold">
+                            <i class="bi bi-search me-1"></i> Check Status
+                        </button>
+                    </div>
+                </form>
+                <div class="form-text mt-2 small text-muted">
+                    <i class="bi bi-info-circle me-1"></i> Try searching <code>alex.morgan@example.com</code> or <code>sarah.connor@example.com</code> from our sample data!
+                </div>
+            </div>
+        </div>
+
+        {% if candidate %}
+            <!-- Candidate Profile & History -->
+            <div class="col-lg-8">
+                <!-- Profile Overview -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+                    <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
+                        <div class="stat-icon bg-indigo-light text-primary">
+                            <i class="bi bi-person-badge fs-3"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-0">{{ candidate.full_name }}</h4>
+                            <div class="text-muted small">
+                                <i class="bi bi-envelope me-1"></i>{{ candidate.email }} &nbsp;|&nbsp;
+                                <i class="bi bi-telephone me-1"></i>{{ candidate.phone }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <span class="text-muted small d-block mb-1 fw-semibold">Portfolio / Profile:</span>
+                            {% if candidate.portfolio_url %}
+                                <a href="{{ candidate.portfolio_url }}" target="_blank" class="text-primary text-decoration-none small">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> {{ candidate.portfolio_url }}
+                                </a>
+                            {% else %}
+                                <span class="text-muted small">Not provided</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <span class="text-muted small d-block mb-1 fw-semibold">Skills Recorded:</span>
+                            <div class="d-flex flex-wrap gap-1">
+                                {% for sk in candidate.skills_list %}
+                                    <span class="badge bg-light text-dark border small">{{ sk }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications List -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-journal-text me-2 text-primary"></i>Submitted Applications ({{ applications.count }})</h5>
+
+                    {% if applications %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Target Role</th>
+                                        <th>Company</th>
+                                        <th>Date Applied</th>
+                                        <th>Current Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for app in applications %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'job_detail' app.job.id %}" class="fw-bold text-dark text-decoration-none">
+                                                    {{ app.job.title }}
+                                                </a>
+                                            </td>
+                                            <td>{{ app.job.company.name }}</td>
+                                            <td class="small text-muted">{{ app.applied_date|date:"M d, Y" }}</td>
+                                            <td>
+                                                <span class="badge bg-{{ app.badge_color }} px-3 py-2 rounded-pill">
+                                                    {{ app.status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-4 mb-0">No applications on record for this email yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% elif searched_email %}
+            <div class="col-lg-8 text-center py-4">
+                <div class="p-4 bg-white rounded-4 border">
+                    <i class="bi bi-person-x fs-1 text-muted d-block mb-2"></i>
+                    <h5 class="fw-bold">No profile found</h5>
+                    <p class="text-muted small">We couldn't find an application associated with <strong>{{ searched_email }}</strong>.</p>
+                    <a href="{% url 'job_list' %}" class="btn btn-indigo rounded-pill px-4 btn-sm">Browse Available Jobs</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

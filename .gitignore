@@ -1,0 +1,8 @@
+venv/
+*.pyc
+__pycache__/
+*.sqlite3-journal
+.DS_Store
+.env
+staticfiles/
+cookies.txt

@@ -1,0 +1,308 @@
+/* ==========================================================================
+   TalentSphere ATS - Modern High-End UI Stylesheet
+   ========================================================================== */
+
+:root {
+    --primary-indigo: #4f46e5;
+    --primary-indigo-hover: #4338ca;
+    --indigo-accent: #6366f1;
+    --indigo-light: #eef2ff;
+    --navy-dark: #0f172a;
+    --navy-surface: #1e293b;
+    --bg-surface: #f8fafc;
+    --card-border: #e2e8f0;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: #334155;
+    background-color: var(--bg-surface);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------- Navbar & Brand ---------------- */
+.bg-navy {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%) !important;
+}
+
+.brand-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.35);
+}
+
+.brand-title {
+    letter-spacing: -0.5px;
+}
+
+.text-indigo-accent {
+    color: #818cf8 !important;
+}
+
+.bg-indigo {
+    background-color: var(--primary-indigo) !important;
+    color: #ffffff !important;
+}
+.bg-indigo:hover {
+    background-color: var(--primary-indigo-hover) !important;
+    color: #ffffff !important;
+}
+
+.btn-indigo {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+.btn-indigo:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* ---------------- Hero Section ---------------- */
+.hero-gradient {
+    background: radial-gradient(circle at top right, #312e81 0%, #0f172a 60%, #020617 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-gradient::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ---------------- Job Cards ---------------- */
+.job-card {
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-hover-shadow);
+    border-color: #cbd5e1;
+}
+
+.company-logo-img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.badge-job-type {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.4em 0.8em;
+    border-radius: 20px;
+}
+
+.badge-Full-time {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-Remote {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.badge-Contract {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge-Part-time {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.badge-Internship {
+    background-color: #ffe4e6;
+    color: #9f1239;
+}
+
+/* ---------------- Skill Tags ---------------- */
+.skill-pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.65rem;
+    background-color: #f1f5f9;
+    color: #475569;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+}
+
+.skill-pill:hover, .skill-pill.active {
+    background-color: #e0e7ff;
+    color: #4338ca;
+    border-color: #c7d2fe;
+}
+
+/* ---------------- Recruiter Dashboard / ATS Pipeline ---------------- */
+.pipeline-column {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1rem;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pipeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.pipeline-column.col-applied {
+    border-top: 4px solid #3b82f6;
+}
+
+.pipeline-column.col-review {
+    border-top: 4px solid #f59e0b;
+}
+
+.pipeline-column.col-shortlist {
+    border-top: 4px solid #10b981;
+}
+
+.pipeline-column.col-rejected {
+    border-top: 4px solid #ef4444;
+}
+
+.applicant-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.9rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.applicant-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+}
+
+.applicant-card.border-start-applied {
+    border-left: 4px solid #3b82f6;
+}
+.applicant-card.border-start-review {
+    border-left: 4px solid #f59e0b;
+}
+.applicant-card.border-start-shortlisted {
+    border-left: 4px solid #10b981;
+}
+.applicant-card.border-start-rejected {
+    border-left: 4px solid #ef4444;
+}
+
+/* ---------------- Stat Cards ---------------- */
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    padding: 1.25rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+}
+
+/* ---------------- Modal & Forms ---------------- */
+.modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #f1f5f9;
+    padding: 1.25rem 1.5rem;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.95rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--indigo-accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* ---------------- Utilities ---------------- */
+.hover-white:hover {
+    color: #ffffff !important;
+}
+
+.space-y-2 > li {
+    margin-bottom: 0.5rem;
+}
+
+.bg-surface {
+    background-color: var(--bg-surface);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-item {
+    animation: fadeIn 0.3s ease-out forwards;
+}

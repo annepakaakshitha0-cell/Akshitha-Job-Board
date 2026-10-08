@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} | TalentSphere ATS{% endblock %}
+
+{% block content %}
+<div class="bg-navy text-white py-4 border-bottom">
+    <div class="container">
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <a href="{% url 'recruiter_dashboard' %}" class="text-indigo-accent text-decoration-none small">
+                <i class="bi bi-arrow-left"></i> Back to ATS Pipeline
+            </a>
+        </div>
+        <h1 class="h3 fw-bold mb-0">{{ title }}</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Company <span class="text-danger">*</span></label>
+                            {{ form.company }}
+                            {% if form.company.errors %}
+                                <div class="text-danger small mt-1">{{ form.company.errors }}</div>
+                            {% endif %}
+                            <div class="form-text small">Select the employer or create one in Django Admin.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Job Type <span class="text-danger">*</span></label>
+                            {{ form.job_type }}
+                            {% if form.job_type.errors %}
+                                <div class="text-danger small mt-1">{{ form.job_type.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Job Title <span class="text-danger">*</span></label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="text-danger small mt-1">{{ form.title.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Salary Range / Compensation <span class="text-danger">*</span></label>
+                            {{ form.salary_range }}
+                            {% if form.salary_range.errors %}
+                                <div class="text-danger small mt-1">{{ form.salary_range.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Required Skills (comma separated) <span class="text-danger">*</span></label>
+                            {{ form.required_skills }}
+                            {% if form.required_skills.errors %}
+                                <div class="text-danger small mt-1">{{ form.required_skills.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Job Description & Responsibilities <span class="text-danger">*</span></label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-check form-switch mt-2">
+                                {{ form.active }}
+                                <label class="form-check-label fw-semibold small ms-2" for="{{ form.active.id_for_label }}">Active & Open for Applications</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'recruiter_dashboard' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                        <button type="submit" class="btn btn-indigo rounded-pill px-5 fw-semibold">
+                            <i class="bi bi-check-circle me-1"></i> Save Job Posting
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

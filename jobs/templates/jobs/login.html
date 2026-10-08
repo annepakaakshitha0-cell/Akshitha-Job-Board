@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recruiter Portal Sign In | TalentSphere ATS{% endblock %}
+
+{% block content %}
+<div class="container py-5 my-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+                <div class="bg-navy p-4 text-center text-white">
+                    <div class="brand-icon-box mx-auto mb-2" style="width: 48px; height: 48px;">
+                        <i class="bi bi-shield-lock-fill fs-4 text-white"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">Recruiter Sign In</h3>
+                    <p class="small text-light opacity-75 mb-0">Staff authentication for ATS Pipeline access</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <!-- 1-Click Fast Demo Login for Testers & Reviewers -->
+                    <div class="p-3 bg-indigo-light rounded-3 border border-indigo-subtle mb-4 text-center">
+                        <div class="small fw-bold text-navy mb-1">
+                            <i class="bi bi-lightning-charge-fill text-warning me-1"></i> Quick Evaluation Access
+                        </div>
+                        <p class="text-secondary small mb-3">One-click instant login as a verified Recruiter / Staff Admin:</p>
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="demo_login" value="true">
+                            <button type="submit" id="btn-demo-login-submit" class="btn btn-indigo btn-sm w-100 rounded-pill py-2 fw-semibold">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> 1-Click Recruiter Demo Login
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="d-flex align-items-center my-3 text-muted small">
+                        <hr class="flex-grow-1">
+                        <span class="px-2">or sign in with credentials</span>
+                        <hr class="flex-grow-1">
+                    </div>
+
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label small fw-semibold">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                                <input type="text" name="username" class="form-control" id="id_username" placeholder="admin or recruiter" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label small fw-semibold">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-key"></i></span>
+                                <input type="password" name="password" class="form-control" id="id_password" placeholder="••••••••" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-navy text-white bg-dark w-100 rounded-pill py-2 fw-semibold mb-3">
+                            Sign In to ATS
+                        </button>
+                    </form>
+
+                    <div class="text-center pt-2 border-top">
+                        <a href="{% url 'job_list' %}" class="small text-muted text-decoration-none">
+                            <i class="bi bi-arrow-left me-1"></i> Return to Job Board
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

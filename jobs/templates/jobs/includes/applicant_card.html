@@ -1,0 +1,75 @@
+<div class="applicant-card border-start-{{ border_stage }}" id="applicant-card-{{ application.id }}">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+            <h6 class="fw-bold mb-0 text-dark">{{ application.candidate.full_name }}</h6>
+            <a href="mailto:{{ application.candidate.email }}" class="small text-muted text-decoration-none d-block">
+                <i class="bi bi-envelope me-1"></i>{{ application.candidate.email }}
+            </a>
+            <span class="small text-muted d-block">
+                <i class="bi bi-telephone me-1"></i>{{ application.candidate.phone }}
+            </span>
+        </div>
+        <span class="badge bg-{{ application.badge_color }} rounded-pill small">
+            {{ application.status }}
+        </span>
+    </div>
+
+    <!-- Job Applied For -->
+    <div class="p-2 bg-light rounded-2 mb-2 small">
+        <span class="text-muted d-block small">Applied for:</span>
+        <a href="{% url 'job_detail' application.job.id %}" class="fw-semibold text-dark text-decoration-none">
+            {{ application.job.title }}
+        </a>
+        <div class="text-secondary small">{{ application.job.company.name }}</div>
+    </div>
+
+    <!-- Candidate Skills -->
+    <div class="mb-2">
+        <div class="d-flex flex-wrap gap-1">
+            {% for sk in application.candidate.skills_list|slice:":3" %}
+                <span class="badge bg-white text-secondary border small" style="font-size: 0.7rem;">{{ sk }}</span>
+            {% endfor %}
+            {% if application.candidate.skills_list|length > 3 %}
+                <span class="badge bg-white text-muted border small" style="font-size: 0.7rem;">+{{ application.candidate.skills_list|length|add:"-3" }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Extra Links & Cover Letter -->
+    <div class="d-flex align-items-center justify-content-between mb-3 small pt-1 border-top">
+        {% if application.candidate.portfolio_url %}
+            <a href="{{ application.candidate.portfolio_url }}" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none small">
+                <i class="bi bi-link-45deg"></i> Portfolio
+            </a>
+        {% else %}
+            <span class="text-muted small">No link</span>
+        {% endif %}
+
+        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none text-secondary"
+                data-bs-toggle="modal"
+                data-bs-target="#coverLetterModal"
+                data-candidate="{{ application.candidate.full_name }}"
+                data-job="{{ application.job.title }}"
+                data-letter="{{ application.cover_letter|escapejs }}">
+            <i class="bi bi-eye"></i> Cover Letter
+        </button>
+    </div>
+
+    <!-- Status Selector with Instant AJAX Handler -->
+    <div class="d-flex align-items-center gap-2">
+        <label for="status-select-{{ application.id }}" class="visually-hidden">Status</label>
+        <select class="form-select form-select-sm applicant-status-select"
+                id="status-select-{{ application.id }}"
+                data-app-id="{{ application.id }}">
+            {% for choice in status_choices %}
+                <option value="{{ choice }}" {% if application.status == choice %}selected{% endif %}>
+                    Move to: {{ choice }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="text-end text-muted mt-2" style="font-size: 0.7rem;">
+        <i class="bi bi-clock"></i> {{ application.applied_date|date:"M d, Y" }}
+    </div>
+</div>
